@@ -22,3 +22,22 @@ export class CreateUserDTO {
   @IsOptional()
   superAdmin?: boolean;
 }
+
+export class UpdateUserDTO {
+  @IsEmail()
+  @IsOptional()
+  email: string;
+
+  @IsString()
+  @IsNotEmpty()
+  @IsOptional()
+  firstName: string;
+
+  @IsString()
+  @IsNotEmpty()
+  @IsOptional()
+  lastName: string;
+
+  @IsBoolean()
+  superAdmin: boolean;
+}
