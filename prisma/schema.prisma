@@ -13,28 +13,25 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// Clerk Users stored with roles and gym affiliation
+
 model User{
   id          String @id // ClerkId
   email       String @unique
   firstName   String
   lastName    String
-  role        UserRole @default(CLIENT)
+  superAdmin  Boolean @default(false)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt 
 
   gyms        GymUser[]
 }
 
-// Roles
-enum UserRole {
-  SUPER_ADMIN
-  ADMIN
-  COACH
-  CLIENT
-}
+enum GymStatus {
+  PENDING
+  APPROVED
+  TERMINATED
+  }
 
-// Gyms in Vetra
 model Gym {
   id          String @id @default(uuid())
   name        String @unique
@@ -44,22 +41,37 @@ model Gym {
   zip         String
   phone       String?
   website     String?
+  status      GymStatus @default(PENDING)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
   users       GymUser[]
 }
 
-// GymUsers in Vetra (many to many)
+enum GymRole {
+  ADMIN
+  COACH
+  CLIENT
+}
+
+enum GymUserStatus {
+  PENDING
+  ACTIVE
+  INACTIVE
+  TERMINATED
+}
+
 model GymUser {
+  id          String @id @default(uuid())
   userId      String
   gymId       String
-  role        UserRole
+  role        GymRole @default(CLIENT)
+  status      GymUserStatus @default(PENDING)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
   user        User @relation(fields: [userId], references: [id])
   gym         Gym @relation(fields: [gymId], references: [id])
 
-  @@id([userId, gymId])
+  @@unique([userId, gymId])
 }
