@@ -16,26 +16,26 @@ export class UserController {
 
   @Get()
   async list() {
-    return this.userService.list();
+    return await this.userService.list();
   }
 
   @Get(':id')
   async getOne(@Param('id') id: string) {
-    return this.userService.getOne(id);
+    return await this.userService.getOne(id);
   }
 
   @Post()
   async create(@Body() body: { userId: string; data: CreateUserDTO }) {
-    return this.userService.create(body.userId, body.data);
+    return await this.userService.create(body.userId, body.data);
   }
 
   @Patch(':id')
   async updateUser(@Param('id') id: string, @Body() data: UpdateUserDTO) {
-    return this.userService.update(id, data);
+    return await this.userService.update(id, data);
   }
 
   @Delete(':id')
   async deleteUser(@Param('id') id: string) {
-    return this.userService.delete(id);
+    return await this.userService.delete(id);
   }
 }
