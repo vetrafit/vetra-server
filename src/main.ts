@@ -16,7 +16,7 @@ async function bootstrap() {
 
   await app.register(cors, {
     origin: '*', // Allow all origins (adjust for production)
-    methods: ['GET', 'POST', 'PATCH', 'DELETE'],
+    methods: ['GET', 'POST', 'PATCH', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true, // Enable this if using cookies/auth headers
   });
