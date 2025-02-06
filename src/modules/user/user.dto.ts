@@ -39,5 +39,6 @@ export class UpdateUserDTO {
   lastName: string;
 
   @IsBoolean()
+  @IsOptional()
   superAdmin: boolean;
 }
