@@ -6,8 +6,10 @@ import { CreateUserDTO, UpdateUserDTO } from './user.dto';
 export class UserService {
   constructor(private prisma: PrismaService) {}
 
-  async list() {
-    return await this.prisma.user.findMany();
+  async list(includeGyms?: boolean) {
+    return await this.prisma.user.findMany({
+      include: includeGyms ? { gyms: { include: { gym: true } } } : undefined,
+    });
   }
 
   async getOne(id: string) {

@@ -4,8 +4,10 @@ import {
   Delete,
   Get,
   Param,
+  ParseBoolPipe,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDTO, UpdateUserDTO } from './user.dto';
@@ -15,8 +17,8 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Get()
-  async list() {
-    return await this.userService.list();
+  async list(@Query('includeGyms', new ParseBoolPipe()) includeGyms?: boolean) {
+    return await this.userService.list(includeGyms);
   }
 
   @Get(':id')
