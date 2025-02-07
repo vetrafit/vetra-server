@@ -29,6 +29,7 @@ model User{
 enum GymStatus {
   PENDING
   APPROVED
+  INACTIVE
   TERMINATED
   }
 
