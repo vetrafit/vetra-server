@@ -10,9 +10,12 @@ export class GymService {
     return await this.prisma.gym.findMany();
   }
 
-  async getOne(id: string) {
+  async getOne(id: string, includeUsers?: boolean) {
     const gym = await this.prisma.gym.findUnique({
       where: { id },
+      include: includeUsers
+        ? { users: { include: { user: true } } }
+        : undefined,
     });
 
     if (!gym) {

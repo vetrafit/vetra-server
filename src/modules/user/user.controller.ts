@@ -22,8 +22,11 @@ export class UserController {
   }
 
   @Get(':id')
-  async getOne(@Param('id') id: string) {
-    return await this.userService.getOne(id);
+  async getOne(
+    @Param('id') id: string,
+    @Query('includeGyms', new ParseBoolPipe()) includeGyms?: boolean,
+  ) {
+    return await this.userService.getOne(id, includeGyms);
   }
 
   @Post()

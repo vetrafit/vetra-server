@@ -4,8 +4,10 @@ import {
   Delete,
   Get,
   Param,
+  ParseBoolPipe,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import { GymService } from './gym.service';
 import { CreateGymDTO, UpdateGymDTO } from './gym.dto';
@@ -20,8 +22,11 @@ export class GymController {
   }
 
   @Get(':id')
-  async getOne(@Param('id') id: string) {
-    return await this.gymService.getOne(id);
+  async getOne(
+    @Param('id') id: string,
+    @Query('includeUsers', new ParseBoolPipe()) includeUsers?: boolean,
+  ) {
+    return await this.gymService.getOne(id, includeUsers);
   }
 
   @Post()
