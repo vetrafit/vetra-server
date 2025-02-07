@@ -8,13 +8,18 @@ export class UserService {
 
   async list(includeGyms?: boolean) {
     return await this.prisma.user.findMany({
-      include: includeGyms ? { gyms: { include: { gym: true } } } : undefined,
+      include: includeGyms
+        ? { gymUsers: { include: { gym: true } } }
+        : undefined,
     });
   }
 
-  async getOne(id: string) {
+  async getOne(id: string, includeGyms?: boolean) {
     const user = await this.prisma.user.findUnique({
       where: { id },
+      include: includeGyms
+        ? { gymUsers: { include: { gym: true } } }
+        : undefined,
     });
 
     if (!user) {
