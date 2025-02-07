@@ -52,7 +52,7 @@ model Gym {
 enum GymRole {
   ADMIN
   COACH
-  CLIENT
+  MEMBER
 }
 
 enum GymUserStatus {
@@ -66,7 +66,7 @@ model GymUser {
   id          String @id @default(uuid())
   userId      String
   gymId       String
-  role        GymRole @default(CLIENT)
+  role        GymRole @default(MEMBER)
   status      GymUserStatus @default(PENDING)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
